@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+
+</head>
+
+<body>
+    <div style="margin-left:-90px">
+        <div class="media-body">
+            <legend style="margin-top: 30px; font-weight:600;font-size: 30px;color:#253351">Score</legend>
+            <hr style="color:#253351;position: relative;
+                top: 0px;
+                border: none;
+                height: 1px;
+                background:#253351;
+                margin-bottom: 10px;">
+        </div>
+        <div>
+            <p style="font-size:20px; color: #253351;font-weight: 550; ">You scored {{ result }} out of {{ total }}!</p>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock content %}

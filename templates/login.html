@@ -1,0 +1,111 @@
+{% extends "try.html" %}
+{% block content %}
+<html lang="en">
+
+<head>
+    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+
+</head>
+<style>
+    .both {
+        width: 40%;
+        margin-left: 3%;
+        margin-top: 3%;
+    }
+
+    .heading {
+        font-size: 175%;
+        font-weight: 600;
+        border-bottom: .02em solid #343a40;
+    }
+
+    .two {
+        width: 100%;
+        font-weight: 600;
+        padding: 8%;
+        padding-top: 5%;
+        padding-bottom: 5%;
+        border-radius: 5px;
+        border: 2px solid black;
+        background-color: #fff;
+    }
+
+    .pp {
+        text-align: center;
+        background-color: #fff;
+        border: 1px solid #000;
+        border-radius: 5px;
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    @media (max-width: 500px) {
+        .both {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            float: center;
+            margin-top: 3%;
+        }
+
+        .heading {
+            font-size: 175%;
+            font-weight: 600;
+            border-bottom: .02em solid #343a40;
+        }
+
+        .two {
+            width: 100%;
+            font-weight: 600;
+            padding: 8%;
+            padding-top: 5%;
+            padding-bottom: 5%;
+            border-radius: 5px;
+            border: 2px solid black;
+            background-color: #fff;
+        }
+
+        .pp {
+            text-align: center;
+            background-color: #fff;
+            border: 1px solid #000;
+            border-radius: 5px;
+            width: 100%;
+            margin-left: 0%;
+        }
+    }
+</style>
+
+<body>
+    <div class="both">
+        <p class="heading">Login</p>
+        <br>
+        <div class="two">
+            <form method="post" action="/login">
+                <div class="mb-3">
+                    <label for="validationCustom03" class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" id="validationCustom03"
+                        aria-describedby="emailHelp" required>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                </div>
+                <button type="submit" class="btn btn-secondary form-control">Submit</button>
+            </form>
+        </div>
+        <br>
+        {% if message == "" %}
+        <p></p>
+        {% else %}
+        <p class="pp alert alert-{{ category }}">{{ message }}!</p>
+        {% endif %}
+    </div>
+    </div>
+</body>
+
+</html>
+{% endblock content %}

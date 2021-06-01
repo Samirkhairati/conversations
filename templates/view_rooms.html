@@ -1,0 +1,125 @@
+{% extends "try.html" %}
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+
+</head>
+
+<body>
+    <style>
+        .both {
+            width: 90%;
+            margin-left: 3%;
+            margin-top: 3%;
+        }
+
+        .one {
+            width: 100%;
+        }
+
+        .heading {
+            font-size: 175%;
+            font-weight: 600;
+            width: 50%;
+            border-bottom: .02em solid #343a40;
+        }
+
+        .two {
+            width: 50%;
+            font-weight: 600;
+            padding: 3%;
+            border-radius: 5px;
+            border: 2px solid black;
+            background-color: #fff;
+        }
+
+        .heading2 {
+            font-size: 125%;
+            font-weight: 600;
+            margin-top: -1%;
+        }
+
+        .text_box {
+            font-size: 100%;
+        }
+
+        a.button1 {
+            display: inline-block;
+            font-weight: 400;
+            color: #FFFFFF;
+            text-align: center;
+            transition: all 0.2s;
+            background-color: #343a40;
+            width: 100%;
+            padding: 2%;
+            border: 5px solid #343a40;
+            border-radius: 5px;
+            margin-top: 2%;
+        }
+
+        a.button1:hover {
+            color: #000;
+            background-color: #fff;
+        }
+
+        @media (max-width: 500px) {
+            .both {
+                width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+                float: center;
+                margin-top: 3%;
+            }
+
+            .one {
+                width: 100%;
+            }
+
+            .heading {
+                font-size: 175%;
+                font-weight: 600;
+                width: 100%;
+            }
+
+            .two {
+                width: 100%;
+                font-weight: 600;
+                padding: 5%;
+                border-radius: 5px;
+                border: 2px solid black;
+                background-color: #fff;
+            }
+    </style>
+    <div class="both">
+        <div class="one">
+            <p class="heading">View Rooms</p>
+        </div>
+        <br>
+        <div class="two">
+            <p class="heading2">
+                Hi {% if current_user.is_authenticated %}{{ current_user.username }}{% else %}Guest{% endif %}!
+                {% if current_user.is_authenticated %}
+                <br>
+                {% if rooms == [] %}
+            <p class="text_box">Please use the buttons below to create a room:</p>
+            <a class="button1" href="/counsellor/<1>">Chat with Ms. Bhavana Bhasin</a>
+            <br>
+            <a class="button1" href="/counsellor/<2>">Chat with Ms. Kamiya Kumar</a>
+            <br>
+            <a class="button1" href="/counsellor/<3>"">Chat with Ms. Tanvi Bajaj</a>
+                {% elif rooms != [] %}
+                    <p class=" text_box">You are a member of the following groups:</p>
+                {% for room in rooms %}
+                <a class="button1" href="/chat-room/{{ room._id.room_id }}">{{ room.room_name }}</a>
+                <br>
+                {% endfor %}
+                {% endif %}
+                {% endif %}
+                </p>
+        </div>
+    </div>
+</body>
+{% endblock content %}

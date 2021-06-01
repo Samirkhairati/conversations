@@ -1,0 +1,121 @@
+{% extends "try.html" %}
+{% block content %}
+<html lang="en">
+
+<head>
+    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+
+</head>
+<style>
+    .both {
+        width: 40%;
+        margin-left: 3%;
+        margin-top: 3%;
+    }
+
+    .heading {
+        font-size: 175%;
+        font-weight: 600;
+        border-bottom: .02em solid #343a40;
+    }
+
+    .two {
+        width: 100%;
+        font-weight: 600;
+        padding: 8%;
+        padding-top: 5%;
+        padding-bottom: 5%;
+        border-radius: 5px;
+        border: 2px solid black;
+        background-color: #fff;
+    }
+
+    .pp {
+        text-align: center;
+        background-color: #fff;
+        border: 1px solid #000;
+        border-radius: 5px;
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    @media (max-width: 500px) {
+        .both {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            float: center;
+            margin-top: 3%;
+        }
+
+        .heading {
+            font-size: 175%;
+            font-weight: 600;
+            border-bottom: .02em solid #343a40;
+        }
+
+        .two {
+            width: 100%;
+            font-weight: 600;
+            padding: 8%;
+            padding-top: 5%;
+            padding-bottom: 5%;
+            border-radius: 5px;
+            border: 2px solid black;
+            background-color: #fff;
+        }
+
+        .pp {
+            text-align: center;
+            background-color: #fff;
+            border: 1px solid #000;
+            border-radius: 5px;
+            width: 100%;
+            margin-left: 0%;
+        }
+    }
+</style>
+
+<body>
+    <div class="both">
+        <p class="heading">New Group appointment</p>
+        <div class="two">
+            <form method="post">
+                <div class="mb-3 row">
+                    <label for="validationCustom03" class="form-label">Date: </label>
+                    <input type="date" name="date" class="form-control " required>
+                </div>
+                <div class="mb-3 row">
+                    <label for="validationCustom03" class="form-label">Time Start:</label>
+                    <input type="time" name="timestart" class="form-control media3" required>
+                </div>
+                <div class="mb-3 row">
+                    <label for="validationCustom03" class="form-label">Time End:</label>
+                    <input type="time" name="timeend" class="form-control" required>
+                </div>
+                <div class="mb-3 row">
+                    <label for="validationCustom03" class="form-label">Event:</label>
+                    <input type="text" name="event" class="form-control" required>
+                </div>
+                <div class="mb-3 row">
+                    <label for="validationCustom03" class="form-label">Meeting Link:</label>
+                    <input type="text" name="link" class="form-control " required>
+                </div>
+                <input type="submit" class="btn btn-secondary form-control" value="Submit" name="Submit" />
+            </form>
+        </div>
+        <br>
+        {% if message == "" %}
+        <p></p>
+        {% else %}
+        <p class="pp alert alert-{{ category }}">{{ message }}!</p>
+        {% endif %}
+    </div>
+    </div>
+</body>
+
+</html>
+{% endblock content %}
