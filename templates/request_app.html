@@ -1,0 +1,118 @@
+{% extends "try.html" %}
+{% block content %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+
+</head>
+
+
+<body>
+    <style>
+        .both {
+            width: 30%;
+            margin-left: 3%;
+            margin-top: 3%;
+        }
+
+        .heading {
+            font-size: 175%;
+            font-weight: 600;
+            border-bottom: .02em solid #343a40;
+        }
+
+        .btnz {
+            transition: transform .2s;
+        }
+
+        .btnz:hover {
+            transform: scale(1.1);
+            /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        }
+
+        .button_img {
+            width: 95%;
+            height: 95%;
+        }
+
+        a {
+            color: #fff;
+            text-align: center;
+        }
+
+        .pp {
+            text-align: center;
+            background-color: #fff;
+            border: 1px solid #000;
+            border-radius: 5px;
+            width: 100%;
+            margin-left: 0%;
+            padding-top: 0.75em;
+            padding-bottom: 0.25em;
+        }
+
+        @media (max-width: 500px) {
+            .both {
+                width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+                float: center;
+                margin-top: 3%;
+            }
+
+            .heading {
+                font-size: 175%;
+                font-weight: 600;
+                border-bottom: .02em solid #343a40;
+                width: 100%;
+            }
+
+            .btnz {
+                transition: transform .2s;
+            }
+
+            .btnz:hover {
+                transform: scale(1);
+                /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+            }
+
+            .button_img {
+                width: 100%;
+                height: 100%;
+            }
+
+            a {
+                color: #fff;
+                text-align: left;
+            }
+    </style>
+    <div class="both">
+        <p class="heading">Schedule a New Appointment</p>
+        <a href="{{ url_for('new_one') }}">
+            <div class="btnz">
+                <img class="button_img"
+                    src="https://media.discordapp.net/attachments/763767615042224149/848863170277277696/row-1-col-1_2.png?width=452&height=120">
+            </div>
+        </a>
+        <a href="{{ url_for('new_group') }}">
+            <div class="btnz">
+                <img class="button_img"
+                    src="https://media.discordapp.net/attachments/763767615042224149/848863172026171422/row-2-col-1_2.png?width=452&height=121">
+            </div>
+        </a>
+        <br>
+        {% if message == "" %}
+        <p></p>
+        {% else %}
+        <div class="pp">
+            <p class=" alert-{{ category }}">{{ message }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>
+{% endblock content %}

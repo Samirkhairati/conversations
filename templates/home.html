@@ -1,0 +1,159 @@
+{% extends "try.html" %}
+{% block content %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+
+</head>
+
+<body>
+    <style>
+        .both {
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            float: center;
+        }
+
+        .one {
+            width: 60%;
+            height: 90%;
+            float: left;
+            padding: 0;
+        }
+
+        .logo {
+            width: 100%;
+            height: 100%;
+            padding: auto;
+        }
+
+        .two {
+            width: 40%;
+            float: right;
+            height: 90%;
+            padding: 5%;
+            padding-top: 3%;
+        }
+
+        .btnz {
+            transition: transform .2s;
+        }
+
+        .btnz:hover {
+            transform: scale(1.1);
+            /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        }
+
+        .btnz_img {
+            width: 75%;
+            height: 75%;
+        }
+
+        .bl {
+            height: 10%;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 5px;
+            border: 2px solid black;
+        }
+
+        @media (max-width: 500px) {
+            .both {
+                position: relative;
+                margin-left: auto;
+                margin-right: auto;
+                float: center;
+            }
+
+            .one {
+                width: 100%;
+                height: 90%;
+                padding: 0;
+            }
+
+            .logo {
+                width: 100%;
+                height: 100%;
+                padding: auto;
+            }
+
+            .two {
+                width: 100%;
+                height: 90%;
+                padding: 5%;
+            }
+
+            .btnz {
+                transition: transform .2s;
+            }
+
+            .btnz:hover {
+                transform: scale(1);
+                /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+            }
+
+            .btnz_img {
+                width: 100%;
+                height: 100%;
+            }
+    </style>
+    <div class="both">
+        <div class="one">
+            <br>
+            <img class="logo"
+                src="https://media.discordapp.net/attachments/763767615042224149/847121097789931590/image_2021-05-26_200439-removebg-preview.png?width=461&height=282"
+                class="imgsrc">
+            <br>
+            <center>
+                {% if message == "" %}
+                <p></p>
+                {% else %}
+                <div class="bl">
+                    <legend>
+                        {{ message }}
+                    </legend>
+                </div>
+                {% endif %}
+            </center>
+        </div>
+        <div class="two">
+            <a href="{{ url_for('rooms') }}">
+                <div class="btnz">
+                    <img class="btnz_img"
+                        src="https://media.discordapp.net/attachments/763767615042224149/848872547864412201/row-1-col-1_3.png?width=400&height=120">
+                </div>
+            </a>
+            <a href="{{ url_for('schedule') }}">
+                <div class="btnz">
+                    <img class="btnz_img"
+                        src="https://media.discordapp.net/attachments/763767615042224149/848872544027279400/row-2-col-1_3.png?width=400&height=120">
+                </div>
+            </a>
+            <a href="{{ url_for('request_app') }}">
+                <div class="btnz">
+                    <img class="btnz_img"
+                        src="https://media.discordapp.net/attachments/763767615042224149/848872544920272916/row-3-col-1.png?width=400&height=120">
+                </div>
+            </a>
+            <a href="{{ url_for('pic') }}">
+                <div class="btnz">
+                    <img class="btnz_img"
+                        src="https://media.discordapp.net/attachments/763767615042224149/848872546552119336/row-4-col-1.png?width=400&height=120">
+                </div>
+            </a>
+            <a href="{{ url_for('notifications') }}">
+                <div class="btnz">
+                    <img class="btnz_img"
+                        src="https://media.discordapp.net/attachments/763767615042224149/848872542017683496/row-5-col-1.png?width=400&height=120">
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock content %}
