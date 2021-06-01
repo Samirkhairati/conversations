@@ -21,7 +21,7 @@
             padding: 0px 0;
             height: 450px;
             margin: 0px auto;
-            background: #343a40;
+            background: #16192c;
             border-radius: 0px;
         }
         .events-container {
@@ -60,7 +60,7 @@
             text-align: left;
         }
         .event-cancelled {
-            color: #343a40;
+            color: #16192c;
             text-align: right;
         }
         .calendar-container  {
@@ -136,7 +136,7 @@
         }
         #cancel-button {
             box-shadow: -1px 10px 20px #FF7DAE;
-            background: #343a40;
+            background: #16192c;
         }
         #add-button {
             display: block;
@@ -184,7 +184,7 @@
             
         }
         .month:hover {
-            color: #343a40;
+            color: #16192c;
             text-shadow: 0 1px 3px rgb(75 69 218);
         }
         .table-date {
@@ -204,7 +204,7 @@
             box-shadow: 0 0px 8px rgb(101, 90, 255);
         }
         .event-date {
-            border-color:#343a40;
+            border-color:#16192c;
 			background-color: rgb(75 69 218);
 			color: white;
             
@@ -215,8 +215,8 @@
             color: #fff;
         }
         .event-date.active-date {
-            /* background: #343a40;
-            box-shadow: 0 2px 8px #343a40; */
+            /* background: #16192c;
+            box-shadow: 0 2px 8px #16192c; */
         }
         .dialog{
             z-index: 5;
@@ -257,7 +257,7 @@
             border-color: #00C9FB;
         }
         .error-input {
-            border-color: #343a40;
+            border-color: #16192c;
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -455,7 +455,7 @@
         var event_count = $("<div class='event-count'>"+events[i]["invited_count"]+" </div>");
         if(events[i]["cancelled"]===true) {
             $(event_card).css({
-                "border-left": "10px solid #343a40"
+                "border-left": "10px solid #16192c"
             });
             event_count = $("<div class='event-cancelled'>Cancelled</div>");
         }
