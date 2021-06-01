@@ -125,7 +125,7 @@
 
     function prepend_message(message, username, created_at) {
         const newNode = document.createElement('div');
-        newNode.innerHTML = `<div style="overflow: hidden;"><p style="float: left;font-weight: 500;font-size: 18px;text-transform: capitalize;">${username}</p><p style="float: right; margin-right: 15px;font-weight: 500;font-size: 12px;color:#253351"">${created_at}</p></div><div>${message}<hr></div>`
+        newNode.innerHTML = `<div style="overflow: hidden;"><p style="float: left;font-weight: 500;font-size: 120%;text-transform: capitalize;">${username}</p><p style=" float: right;margin-right: 15px;font-weight: 500;font-size: 100%;color: #253351">${created_at}</p></div><div>${message}<hr></div>`
         const messages_div = document.getElementById('messages');
         messages_div.insertBefore(newNode, messages_div.firstChild);
     }
@@ -134,7 +134,7 @@
     socket.on('receive_message', function (data) {
         console.log(data);
         const newNode = document.createElement('div');
-        newNode.innerHTML = `<div style="overflow: hidden;"><p style="float: left;font-weight: 500;font-size: 18px;text-transform: capitalize;">${data.username}</p><p style="float: right;margin-right: 15px;font-weight: 500;font-size: 12px;color:#253351"">${data.created_at}</p></div><div>${data.message}<hr></div>`
+        newNode.innerHTML = `<div style="overflow: hidden;"><p style="float: left;font-weight: 500;font-size: 120%;text-transform: capitalize;">${data.username}</p><p style=" float: right;margin-right: 15px;font-weight: 500;font-size: 100%;color: #253351">${data.created_at}</p></div><div>${message}<hr></div>`
         document.getElementById('messages').appendChild(newNode);
         var elem = document.getElementById('messages');
         elem.scrollTop = elem.scrollHeight;
