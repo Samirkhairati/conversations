@@ -1,4 +1,5 @@
 from datetime import datetime
+from logging import debug
 from dns.message import Message
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -460,4 +461,5 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run()
+    # app.run()
+    socketio.run(app, debug=True)
