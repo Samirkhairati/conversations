@@ -18,7 +18,7 @@
 </head>
 <style>
     .both {
-        width: 30%;
+        width: 40%;
         margin-left: 3%;
         margin-top: 3%;
     }
@@ -32,12 +32,6 @@
         bottom: 0;
         padding-bottom: 0%;
         margin-bottom: -5px;
-    }
-
-    .heading {
-        font-size: 175%;
-        font-weight: 600;
-        border-bottom: .02em solid #16192c;
     }
 
     .two {
@@ -59,20 +53,18 @@
         width: 100%;
         margin-left: 0%;
     }
+    .l{
+        font-weight: 600;
+        font-size: 175%;
+    }
 
-    @media (max-width: 500px) {
+    @media (max-width: 580px) {
         .both {
             width: 100%;
             margin-left: auto;
             margin-right: auto;
             float: center;
             margin-top: 3%;
-        }
-
-        .heading {
-            font-size: 175%;
-            font-weight: 600;
-            border-bottom: .02em solid #16192c;
         }
 
         .two {
@@ -94,18 +86,24 @@
             width: 100%;
             margin-left: 0%;
         }
+        .l{
+        font-weight: 600;
+        font-size: 135%;
+    }
+
     }
 </style>
-
 <body>
     <div class="both">
+        <label class="l">New one to one appointment </label>
+
         <div class="two">
             <form method="post">
                 <div class="mb-3 row">
                     <label for="validationCustom03" class="form-label">Date: </label>
-                    <input type="button" name="date" class="form-control datepicker" autocomplete="off">
+                    <input type="button" name="date" class="form-control datepicker" autocomplete="off" required>
                 </div>
-                <input type="submit" class="btn btn-secondary form-control" value="Submit" name="Submit" style="border: 2px solid #16192c;background-color: #16192c;" />
+                <input type="submit" class="btn btn-secondary form-control" value="Submit" name="Submit" />
             </form>
         </div>
     </div>
