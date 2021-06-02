@@ -70,7 +70,7 @@
             <div class="text">
                 <p>Date: {{nevent.get('date')}}</p>
                 <p>Time: {{nevent.get('timestart')}}</p>
-                <p>Meeting With: {{nevent.get('added_by')}}</p>
+                <p>{{nevent.get('event')}}</p>
             </div>
             <a class="button1" href="/addnevent/{{nevent.get('_id')}}">Approve</a>
             <a class="button1" href="/noaddnevent/{{nevent.get('_id')}}">Decline</a>

@@ -9,6 +9,7 @@ from db import get_user, save_user, save_room, add_room_members, get_rooms_for_u
 from db import get_room_members, is_room_admin, update_room, remove_room_members, save_message, get_messages, get_events_for_user_date
 from db import add_event, get_events_for_user, get_gevents, add_gevent, update_user, get_video, delete_event, delete_gevent
 from db import add_nevent, get_nevents_for_user, get_nevents_by_id, delete_nevents_by_id, add_napproval_for_user, get_napproval_for_user
+import random
 
 app = Flask(__name__)
 app.secret_key = "granthbagadiagranthbagadia"
@@ -17,7 +18,7 @@ login_manager = LoginManager()
 login_manager.login_view = 'login'
 login_manager.init_app(app)
 
-
+c = ["Bhavana Bhasin", "Kamiya Kumar", "Tanvi Bajaj", "G-ADMIN", "S-ADMIN"]
 
 @app.route("/")
 @app.route("/home", methods=['GET', 'POST'])
@@ -36,7 +37,7 @@ def granth():
 @app.route("/notifications", methods=['GET', 'POST'])
 @login_required
 def notifications():
-    c = ["Bhavana Bhasin", "Kamiya Kumar", "Tanvi Bajaj"]
+
     if current_user.username in c:
         nevents = get_nevents_for_user(current_user.username)
         return render_template('notification_teacher.html', nevents = nevents)
@@ -98,7 +99,7 @@ def new_one():
         if rooms == []:
             return render_template('home.html', message = "Please join a room to schedule a meet")
         else:
-            c = ["Bhavana Bhasin", "Kamiya Kumar", "Tanvi Bajaj", "G-ADMIN", "S-ADMIN"]
+
             if current_user.username not in c:
                 if request.method == 'POST':
                     c = request.form.get('date')
@@ -119,7 +120,7 @@ def new_one():
                             busy.append(time)
                         options = [item for item in sl if item not in busy]
                         if options == []:
-                            return render_template('new_one.html', counsellor = "", message = f"All slots are booked for {c}")
+                            return render_template('new_one.html', counsellor = x, message = f"All slots are booked for {c}")
                         else:
                             return redirect(url_for('x', date = date))
                 return render_template('new_one.html', counsellor = x, message = "")
@@ -208,7 +209,7 @@ def check_one():
         xy = members[0].get('_id').get('room_id')
         xyz = get_room_members(xy)
         x = xyz[1].get('_id').get('username')
-        c = ["Bhavana Bhasin", "Kamiya Kumar", "Tanvi Bajaj", "G-ADMIN", "S-ADMIN"]
+
         for event in events:
             date = event['date']
             rooms = get_rooms_for_user(current_user.username)

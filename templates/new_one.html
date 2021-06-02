@@ -120,7 +120,8 @@
             <form method="post">
                 <div class="mb-3 row">
                     <label for="validationCustom03" class="form-label">Date: </label>
-                    <input required type="disabled" name="date" class="form-control datepicker" autocomplete="off" required>
+                    <input required type="disabled" name="date" class="form-control datepicker" autocomplete="off"
+                        required>
                 </div>
                 <input type="submit" class="btn btn-secondary form-control" value="Submit" name="Submit"
                     style="border: 2px solid #16192c;background-color: #16192c;" />
@@ -130,9 +131,9 @@
         <br>
         {% if message == "" %}
         <p></p>
-    {% else %}
+        {% else %}
         <p class="pp alert alert-{{ category }}">{{ message }}</p>
-    {% endif %}
+        {% endif %}
     </div>
 </body>
 <script type="text/javascript">
@@ -156,7 +157,7 @@
     }
     else {
         $('.datepicker').datepicker({
-            daysOfWeekDisabled: []
+            daysOfWeekDisabled: [0]
         });
     }
 </script>
