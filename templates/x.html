@@ -1,32 +1,101 @@
-{% extends "try.html" %}
-{% block content %}
+{% extends "try.html" %} {% block content %}
 <html lang="en">
-
-<head>
+  <head>
     <title>Home</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height">
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
-
-</head>
-<style>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, height=device-height"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+  </head>
+  <style>
     .both {
-        width: 30%;
-        margin-left: 3%;
-        margin-top: 3%;
+      width: 50%;
+      margin-left: 3%;
+      margin-top: 3%;
     }
 
     .heading {
-        font-size: 135%;
-        font-weight: 600;
+      font-size: 135%;
+      font-weight: 600;
     }
 
     .l {
-        font-weight: 600;
-        font-size: 135%;
+      font-weight: 600;
+      font-size: 135%;
     }
 
     .two {
+      width:80%;
+      font-weight: 600;
+      padding: 8%;
+      padding-top: 5%;
+      padding-bottom: 5%;
+      border-radius: 5px;
+      border: 2px solid black;
+      background-color: #fff;
+    }
+
+    .pp {
+      text-align: center;
+      background-color: #fff;
+      border: 1px solid #000;
+      border-radius: 5px;
+      width: 100%;
+      margin-left: 0%;
+    }
+    .datalist {
+        width: 70%;
+        
+        margin-left: 10%;
+        float: left;
+        border-radius: 20px;
+        border: 1px solid #aaa;
+      border-radius: 20px;
+    }
+    select {
+      -webkit-appearance: button;
+      -moz-appearance: button;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -webkit-padding-end: 20px;
+      -moz-padding-end: 20px;
+      -webkit-padding-start: 2px;
+      -moz-padding-start: 2px;
+      background-color: #fff;
+      background-position: center right;
+      background-repeat: no-repeat;
+      border: 1px solid #aaa;
+      border-radius: 20px;
+      color: #555;
+      font-size: inherit;
+      margin: 0;
+      overflow: hidden;
+      padding-top: 2px;
+      padding-bottom: 2px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 70%;
+    }
+    @media (max-width: 580px) {
+      .both {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        float: center;
+        margin-top: 3%;
+      }
+
+      .heading {
+        font-size: 135%;
+        font-weight: 600;
+      }
+
+      .two {
         width: 100%;
         font-weight: 600;
         padding: 8%;
@@ -35,110 +104,86 @@
         border-radius: 5px;
         border: 2px solid black;
         background-color: #fff;
-    }
+      }
 
-    .pp {
+      .pp {
         text-align: center;
         background-color: #fff;
         border: 1px solid #000;
         border-radius: 5px;
         width: 100%;
         margin-left: 0%;
+      }
+
+      .l {
+        font-weight: 600;
+        font-size: 135%;
+      }
+      .datalist {
+          
+          margin-left: 0;
+          width: 100%;
+      }
+      .mssg {
+          margin-right: 30%;
+      }
+      select {
+          width: 100%;
+      }
     }
 
-    @media (max-width: 580px) {
-        .both {
-            width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-            float: center;
-            margin-top: 3%;
-        }
-
-        .heading {
-            font-size: 135%;
-            font-weight: 600;
-        }
-
-        .two {
-            width: 100%;
-            font-weight: 600;
-            padding: 8%;
-            padding-top: 5%;
-            padding-bottom: 5%;
-            border-radius: 5px;
-            border: 2px solid black;
-            background-color: #fff;
-        }
-
-        .pp {
-            text-align: center;
-            background-color: #fff;
-            border: 1px solid #000;
-            border-radius: 5px;
-            width: 100%;
-            margin-left: 0%;
-        }
-
-        .l {
-            font-weight: 600;
-            font-size: 135%;
-        }
-    }
-
-
-    select {
-        -webkit-appearance: button;
-        -moz-appearance: button;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -webkit-padding-end: 20px;
-        -moz-padding-end: 20px;
-        -webkit-padding-start: 2px;
-        -moz-padding-start: 2px;
-        background-color: #fff;
-        background-position: center right;
-        background-repeat: no-repeat;
-        border: 1px solid #AAA;
-        border-radius: 20px;
-        color: #555;
-        font-size: inherit;
-        margin: 0;
-        overflow: hidden;
-        padding-top: 2px;
-        padding-bottom: 2px;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 50%
-    }
+    
 
     @media (max-width: 290px) {
-        .l {
-            font-weight: 600;
-            font-size: 100%;
-        }
+      .l {
+        font-weight: 600;
+        font-size: 100%;
+      }
     }
-</style>
+  </style>
 
-<body>
+  <body>
     <div class="both">
-        <label class="l">New one to one appointment </label>
-        <div class="two">
-            <form method="post">
-                <center>
-                    <label for="slot">Choose a slot:</label>
-                    <select id="slot" name="slot">
-                        {% for i in options %}
-                        <option value="{{ i }}">{{ i }}</option>
-                        {% endfor %}
-                    </select>
-                    <br>
-                    <input class="btn btn-secondary form-control" type="submit" style="border: 2px solid #16192c;background-color: #16192c;">
-                </center>
-            </form>
-        </div>
+      <label class="l">New one to one appointment </label>
+      <div class="two">
+        <form method="post">
+          <div class="mb-3 row">
+            <label for="validationCustom03" class="form-label" for="slot"
+              >Choose a slot:</label
+            >
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <select id="slot" name="slot">
+              {% for i in options %}
+              <option value="{{ i }}">{{ i }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3 row">
+            <label
+              for="validationCustom03"
+              class="form-label mssg"
+              style="float: left"
+              >Message:</label
+            >
+            <input class="datalist" name="event" class="form-control" required list="browsers" name="browser" id="browser" />
+            <datalist id="browsers">
+              <option value="Edge"></option>
+              <option value="Firefox"></option>
+              <option value="Chrome"></option>
+              <option value="Opera"></option>
+              <option value="Safari"></option>
+            </datalist>
+          </div>
+          <div class="mb-3 row">
+            <input
+              class="btn btn-secondary form-control"
+              type="submit"
+              style="border: 2px solid #16192c; background-color: #16192c"
+            />
+          </div>
+        </form>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
 {% endblock content %}
