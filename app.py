@@ -25,8 +25,8 @@ c = ["Bhavana Bhasin", "Kamiya Kumar", "Tanvi Bajaj", "G-ADMIN", "S-ADMIN"]
 def home():
     message = ""
     list1 = ["The purpose of our lives is to be happy. — Dalai Lama", "Life is what happens when you’re busy making other plans. — John Lennon", "Get busy living or get busy dying. — Stephen King", "You only live once, but if you do it right, once is enough. — Mae West","Many of life’s failures are people who did not realize how close they were to success when they gave up.– Thomas A. Edison"]
-    message = random.sample(list1, 1)
-    return render_template('home.html', message = message[0])
+    message =str(random.choice(list1))
+    return render_template('home.html', message = message)
 
 
 @app.route("/granth", methods=['GET', 'POST'])
@@ -99,15 +99,15 @@ def new_one():
         if rooms == []:
             return render_template('home.html', message = "Please join a room to schedule a meet")
         else:
-
+            c = ["Bhavana Bhasin", "Kamiya Kumar", "Tanvi Bajaj", "G-ADMIN", "S-ADMIN"]
             if current_user.username not in c:
                 if request.method == 'POST':
-                    c = request.form.get('date')
-                    print(c)
-                    if c == "":
+                    datee = request.form.get('date')
+                    print(datee)
+                    if datee == "":
                         return render_template('new_one.html',counsellor = "", message = "Please enter a date")
                     else:
-                        date = f'{c[6:]}-{c[0:2]}-{c[3:5]}'
+                        date = f'{datee[6:]}-{datee[0:2]}-{datee[3:5]}'
                         sl = ['10:00-10:30', '10:30-11:00', '11:00-11:30', '11:30-12:00', '12:00-12:30', '12:30-13:00', '13:00-13:30']
                         busy = []
                         members = get_rooms_for_user(current_user.username)
@@ -128,6 +128,7 @@ def new_one():
                 return render_template('request_app.html', message = "Only Students can access this page")
     else:
         return render_template('home.html', message = "Login to continue")
+
 
 
 @app.route("/x/<date>", methods=['GET', 'POST'])
