@@ -92,6 +92,21 @@
     }
 
     }
+    @media (max-width: 250px) {
+        .l {
+            font-weight: 600;
+            font-size: 100%;
+        }
+
+        .both {
+            width: 75%
+        }
+
+        .datepicker-dropdown {
+            transform: scale(0.8, 0.8);
+            margin-left: 25px;
+        }
+    }
 </style>
 <body>
     <div class="both">
@@ -103,7 +118,7 @@
                     <label for="validationCustom03" class="form-label">Date: </label>
                     <input type="disabled" name="date" class="form-control datepicker" autocomplete="off" required>
                 </div>
-                <input type="submit" class="btn btn-secondary form-control" value="Submit" name="Submit" />
+                <input type="submit" class="btn btn-secondary form-control" value="Submit" name="Submit" style="border: 2px solid #16192c;background-color: #16192c;" />
             </form>
         </div>
     </div>
