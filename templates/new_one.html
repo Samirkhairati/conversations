@@ -55,7 +55,7 @@
     }
     .l{
         font-weight: 600;
-        font-size: 175%;
+        font-size: 135%;
     }
 
     @media (max-width: 580px) {
@@ -101,7 +101,7 @@
             <form method="post">
                 <div class="mb-3 row">
                     <label for="validationCustom03" class="form-label">Date: </label>
-                    <input type="button" name="date" class="form-control datepicker" autocomplete="off" required>
+                    <input type="disabled" name="date" class="form-control datepicker" autocomplete="off" required>
                 </div>
                 <input type="submit" class="btn btn-secondary form-control" value="Submit" name="Submit" />
             </form>
@@ -109,6 +109,9 @@
     </div>
 </body>
 <script type="text/javascript">
+$('.datepicker').attr('readonly','readonly');
+
+
     if (counsellor == "Kamiya Kumar") {
         $('.datepicker').datepicker({
             daysOfWeekDisabled: [0, 2, 4, 6]
