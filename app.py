@@ -126,7 +126,9 @@ def x(date):
         timestart = request.form.get('slot')
         print(timestart)
         rooms = get_rooms_for_user(current_user.username)
-        event = rooms[0].get('room_name')[13:]
+        ew = rooms[0].get('room_name')[13:]
+        em = request.form.get('event')
+        event = f"Meet of {ew} regarding {em}"
         s = rooms[0].get('room_name').split()
         members = f"{s[4]} {s[5]}"
         print(date, timestart, event, current_user.username, members)
@@ -319,10 +321,10 @@ def addnevent(x):
     members = get_nevents_by_id(objInstance)[0].get('members')
     event = get_nevents_by_id(objInstance)[0].get('event')
     add_event(date, timestart, event, added_by, members)
-    info = f"Your meet with {members} on {date} has been scheduled betweeen {timestart}"
+    info = f"Your meet with {members} on {date} regarding {event} has been scheduled betweeen {timestart}"
     add_napproval_for_user(info, added_by)
     delete_nevents_by_id(x)
-    return render_template('home.html')
+    return render_template('home.html', message="")
 
 
 @app.route("/noaddnevent/<x>", methods=['GET', 'POST'])
@@ -335,7 +337,7 @@ def noaddnevent(x):
     timestart = get_nevents_by_id(objInstance)[0].get('timestart')
     members = get_nevents_by_id(objInstance)[0].get('members')
     event = get_nevents_by_id(objInstance)[0].get('event')
-    info = "This time slot is not available"
+    info = f"The time slot {timestart} is not available"
     add_napproval_for_user(info, added_by)
     delete_nevents_by_id(x)
     return render_template('home.html')
@@ -437,26 +439,6 @@ def page_not_found(e):
 
 
 
-
-@app.route('/index/', methods=['GET', 'POST'])
-@login_required
-def index():
-    if current_user.is_authenticated:
-        gevents = get_gevents()
-        gevents_list = []
-        for gevent in gevents:
-            date = gevent['date']
-            eventt = gevent['event']
-            timestart = gevent['timestart']
-            timeend = gevent['timeend']
-            time = timestart+"-"+timeend
-            link = gevent['link']
-            event = eventt + " " + link
-            g = [event, date, time, link]
-            gevents_list.append(g)
-        return render_template("index.html", gevents = gevents_list)
-    else:
-        return render_template('home.html', message = "Login to continue")
 
 
 
