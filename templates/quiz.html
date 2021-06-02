@@ -72,13 +72,13 @@
             {% for question in data %}
             <p style="font-size:20px; color: #253351;font-weight: 500;font-size: 23px; ">{{ question.question }}</p>
             {% for answer in question.answers %}
-            <input required type="radio" id="{{ answer }}" name="{{ question.id }}" value="{{ answer }}"> {{ answer
+             <input required required type="radio" id="{{ answer }}" name="{{ question.id }}" value="{{ answer }}"> {{ answer
             }}<br>
             {% endfor %}
             <br>
             {% endfor %}
 
-            <input type="submit" class="btn btn-secondary" style="background-color: #16192c;margin-top: 1em;"
+             <input required type="submit" class="btn btn-secondary" style="background-color: #16192c;margin-top: 1em;"
                 value="Submit" name="Submit" />
         </form>
     </div>

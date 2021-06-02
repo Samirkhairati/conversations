@@ -54,13 +54,17 @@
         }
 
         .bl {
-            height: 10%;
+            height: auto;
             width: 100%;
             background-color: #fff;
             border-radius: 5px;
+            padding: auto;
             border: 2px solid black;
         }
-
+        .l {
+            font-weight: 600;
+            font-size: 135%;
+        }
         @media (max-width: 500px) {
             .both {
                 position: relative;
@@ -113,9 +117,7 @@
                 <p></p>
                 {% else %}
                 <div class="bl">
-                    <legend>
-                        {{ message }}
-                    </legend>
+                    <label class="l">{{message}}</label>
                 </div>
                 {% endif %}
             </center>

@@ -23,7 +23,9 @@ login_manager.init_app(app)
 @app.route("/home", methods=['GET', 'POST'])
 def home():
     message = ""
-    return render_template('home.html', message = message)
+    list1 = ["The purpose of our lives is to be happy. — Dalai Lama", "Life is what happens when you’re busy making other plans. — John Lennon", "Get busy living or get busy dying. — Stephen King", "You only live once, but if you do it right, once is enough. — Mae West","Many of life’s failures are people who did not realize how close they were to success when they gave up.– Thomas A. Edison"]
+    message = random.sample(list1, 1)
+    return render_template('home.html', message = message[0])
 
 
 @app.route("/granth", methods=['GET', 'POST'])
@@ -100,9 +102,27 @@ def new_one():
             if current_user.username not in c:
                 if request.method == 'POST':
                     c = request.form.get('date')
-                    date = f'{c[6:]}-{c[0:2]}-{c[3:5]}'
-                    return redirect(url_for('x', date = date))
-                return render_template('new_one.html', counsellor = x)
+                    print(c)
+                    if c == "":
+                        return render_template('new_one.html',counsellor = "", message = "Please enter a date")
+                    else:
+                        date = f'{c[6:]}-{c[0:2]}-{c[3:5]}'
+                        sl = ['10:00-10:30', '10:30-11:00', '11:00-11:30', '11:30-12:00', '12:00-12:30', '12:30-13:00', '13:00-13:30']
+                        busy = []
+                        members = get_rooms_for_user(current_user.username)
+                        xy = members[0].get('_id').get('room_id')
+                        xyz = get_room_members(xy)
+                        x = xyz[1].get('_id').get('username')
+                        e = get_events_for_user_date(x, date)
+                        for i in e:
+                            time = i.get('timestart')
+                            busy.append(time)
+                        options = [item for item in sl if item not in busy]
+                        if options == []:
+                            return render_template('new_one.html', counsellor = "", message = f"All slots are booked for {c}")
+                        else:
+                            return redirect(url_for('x', date = date))
+                return render_template('new_one.html', counsellor = x, message = "")
             else:
                 return render_template('request_app.html', message = "Only Students can access this page")
     else:

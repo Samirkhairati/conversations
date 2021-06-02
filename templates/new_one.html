@@ -53,7 +53,8 @@
         width: 100%;
         margin-left: 0%;
     }
-    .l{
+
+    .l {
         font-weight: 600;
         font-size: 135%;
     }
@@ -86,12 +87,14 @@
             width: 100%;
             margin-left: 0%;
         }
-        .l{
-        font-weight: 600;
-        font-size: 135%;
-    }
+
+        .l {
+            font-weight: 600;
+            font-size: 135%;
+        }
 
     }
+
     @media (max-width: 250px) {
         .l {
             font-weight: 600;
@@ -108,6 +111,7 @@
         }
     }
 </style>
+
 <body>
     <div class="both">
         <label class="l">New one to one appointment </label>
@@ -116,15 +120,23 @@
             <form method="post">
                 <div class="mb-3 row">
                     <label for="validationCustom03" class="form-label">Date: </label>
-                    <input type="disabled" name="date" class="form-control datepicker" autocomplete="off" required>
+                    <input required type="disabled" name="date" class="form-control datepicker" autocomplete="off" required>
                 </div>
-                <input type="submit" class="btn btn-secondary form-control" value="Submit" name="Submit" style="border: 2px solid #16192c;background-color: #16192c;" />
+                <input type="submit" class="btn btn-secondary form-control" value="Submit" name="Submit"
+                    style="border: 2px solid #16192c;background-color: #16192c;" />
             </form>
+
         </div>
+        <br>
+        {% if message == "" %}
+        <p></p>
+    {% else %}
+        <p class="pp alert alert-{{ category }}">{{ message }}</p>
+    {% endif %}
     </div>
 </body>
 <script type="text/javascript">
-$('.datepicker').attr('readonly','readonly');
+    $('.datepicker').attr('readonly', 'readonly');
 
 
     if (counsellor == "Kamiya Kumar") {
@@ -144,7 +156,7 @@ $('.datepicker').attr('readonly','readonly');
     }
     else {
         $('.datepicker').datepicker({
-            daysOfWeekDisabled: [0]
+            daysOfWeekDisabled: []
         });
     }
 </script>
