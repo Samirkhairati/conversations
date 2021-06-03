@@ -86,6 +86,17 @@ def get_nevents_for_user(username):
     return list(nevent_collection.find({'members': username}))
 
 
+def get_neventsid():
+    ne = list(nevent_collection.find())
+    ids = []
+    for e in ne:
+        idd = e.get('_id')
+        idd = str(idd)
+        iddd = ""
+        iddd += idd
+        ids.append(iddd)
+    return ids
+
 def add_napproval_for_user(info, username):
     napproval_collection.insert_one({'info': info, 'username' : username})
 

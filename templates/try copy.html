@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="https://media.discordapp.net/attachments/763767615042224149/848073383378812978/image-removebg-preview.png?width=85&height=85">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    {% if title %}
+    <title>Conversations - {{ title }}</title>
+    {% else %}
+    <title>Conversations</title>
+    {% endif %}
+    <style>
+
+      #img1 {
+        width: 230px;
+        height:75px;
+        margin-left:-150px
+      }
+      .alert {
+        margin-left: auto;
+        margin-right: auto;
+        float: left;
+        width: 60%;
+        background-color: aliceblue;
+        border: 1px solid #000;
+        text-align: center;
+      }
+      @media (max-width: 500px) {
+        #img1 {
+        width: 200px;
+        height:65px;
+        margin-left:-0px
+      }
+      }
+    </style>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #253551" >
+      <div class="container">
+            <a class="navbar-brand" href="/home">
+              <img id = "img1" src="https://media.discordapp.net/attachments/763767615042224149/847436890956890132/New_Project_2_3.png" alt="" class="d-inline-block align-text-top">
+            </a>
+            <button style="margin-right: 30px;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+              <div class="navbar-nav mr-auto" >
+                {% if current_user.is_authenticated %}
+                <a class="nav-item nav-link" style = "font-size: 18px; color:aliceblue" href="{{ url_for('rooms') }}">View Rooms</a>
+                <a class="nav-item nav-link" style = "font-size: 18px;color:aliceblue" href="{{ url_for('request_app') }}">New Appointment</a>
+                <a class="nav-item nav-link" style = "font-size: 18px;color:aliceblue" href="{{ url_for('schedule') }}">Schedule</a>
+                <a class="nav-item nav-link" style = "font-size: 18px;color:aliceblue" href="{{ url_for('pic') }}">Relaxing</a>
+                {% endif %}
+              </div>
+              <div class="navbar-nav">
+                {% if current_user.is_authenticated %}
+                  <a class="nav-item nav-link" style = "font-size: 18px;color:aliceblue" href="{{ url_for('notifications') }}">Notifications</a>
+                  <a class="nav-item nav-link" style = "font-size: 18px;color:aliceblue" href="{{ url_for('change_pass') }}">Change Password</a>
+                  <a class="nav-item nav-link" style = "font-size: 18px;color:aliceblue" href="{{ url_for('logout') }}">Logout</a>
+                {% else %}
+                  <a class="nav-item nav-link" style = "font-size: 18px;color:aliceblue" href="{{ url_for('login') }}">Login</a>
+                  <a class="nav-item nav-link" style = "font-size: 18px;color:aliceblue" href="{{ url_for('signup') }}">Register</a>
+                {% endif %}
+                </div>
+            </div>
+          </div>
+        </nav>
+  </head>
+  <body style = "background-image:url('https://media.discordapp.net/attachments/763767615042224149/848662035348979772/Layer_2.png');">
+    <main role="main" class="container" style = "margin-left:125px;">
+
+    </main>
+    <div style="margin: 30px 30px 30px 30px;">
+        {% block content %}
+        {% endblock %}
+        </div>
+    <div class="col-md-8" style="margin: 5px 0 30px 60px;">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div  class="alert alert-{{ category }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

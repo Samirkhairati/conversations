@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask_socketio import SocketIO, join_room, leave_room
 from pymongo.errors import DuplicateKeyError
-from db import get_user, save_user, save_room, add_room_members, get_rooms_for_user, get_room, is_room_member
+from db import get_user, save_user, save_room, add_room_members, get_rooms_for_user, get_room, is_room_member, get_neventsid
 from db import get_room_members, is_room_admin, update_room, remove_room_members, save_message, get_messages, get_events_for_user_date
 from db import add_event, get_events_for_user, get_gevents, add_gevent, update_user, get_video, delete_event, delete_gevent
 from db import add_nevent, get_nevents_for_user, get_nevents_by_id, delete_nevents_by_id, add_napproval_for_user, get_napproval_for_user
@@ -25,8 +25,8 @@ c = ["Bhavana Bhasin", "Kamiya Kumar", "Tanvi Bajaj", "G-ADMIN", "S-ADMIN"]
 def home():
     message = ""
     list1 = ["The best way to get started is to quit talking and begin doing." , "The pessimist sees difficulty in every opportunity. The optimist sees opportunity in every difficulty." , "Don’t let yesterday take up too much of today.", "You learn more from failure than from success. Don’t let it stop you. Failure builds character." , "It’s not whether you get knocked down, it’s whether you get up." , "If you are working on something that you really care about, you don’t have to be pushed. The vision pulls you." , "People who are crazy enough to think they can change the world, are the ones who do." , "Failure will never overtake me if my determination to succeed is strong enough.", "Entrepreneurs are great at dealing with uncertainty and also very good at minimizing risk. That’s the classic entrepreneur." , "We may encounter many defeats but we must not be defeated." , "Knowing is not enough; we must apply. Wishing is not enough; we must do." , "Imagine your life is perfect in every respect; what would it look like?" , "We generate fears while we sit. We overcome them by action." , "Whether you think you can or think you can’t, you’re right." , "Security is mostly a superstition. Life is either a daring adventure or nothing." , "The man who has confidence in himself gains the confidence of others." , "The only limit to our realization of tomorrow will be our doubts of today." , "Creativity is intelligence having fun.", "What you lack in talent can be made up with desire, hustle and giving 100% all the time." , "Do what you can with all you have, wherever you are." , "Develop an ‘Attitude of Gratitude’. Say thank you to everyone you meet for everything they do for you." , "You are never too old to set another goal or to dream a new dream." , "To see what is right and not do it is a lack of courage.", "Reading is to the mind, as exercise is to the body." , "Fake it until you make it! Act as if you had all the confidence you require until it becomes your reality." , "The future belongs to the competent. Get good, get better, be the best!" , "For every reason it’s not possible, there are hundreds of people who have faced the same circumstances and succeeded." , "Things work out best for those who make the best of how things work out." , "A room without books is like a body without a soul." , "I think goals should never be easy, they should force you to work, even if they are uncomfortable at the time.", "One of the lessons that I grew up with was to always stay true to yourself and never let what somebody else says distract you from your goals." , "Today’s accomplishments were yesterday’s impossibilities." , "The only way to do great work is to love what you do. If you haven’t found it yet, keep looking. Don’t settle." , "You don’t have to be great to start, but you have to start to be great." , "A clear vision, backed by definite plans, gives you a tremendous feeling of confidence and personal power." , "There are no limits to what you can accomplish, except the limits you place on your own thinking.", "Integrity is the most valuable and respected quality of leadership. Always keep your word." , "Leadership is the ability to get extraordinary achievement from ordinary people" , "Leaders set high standards. Refuse to tolerate mediocrity or poor performance" , "Clarity is the key to effective leadership. What are your goals?" , "The best leaders have a high Consideration Factor. They really care about their people" , "Leaders think and talk about the solutions. Followers think and talk about the problems." , "The key responsibility of leadership is to think about the future. No one else can do it for you." , "The effective leader recognizes that they are more dependent on their people than they are on them. Walk softly." , "Leaders never use the word failure. They look upon setbacks as learning experiences." , "Practice Golden Rule Management in everything you do. Manage others the way you would like to be managed." , "Superior leaders are willing to admit a mistake and cut their losses. Be willing to admit that you’ve changed your mind. Don’t persist when the original decision turns out to be a poor one." , "Leaders are anticipatory thinkers. They consider all consequences of their behaviors before they act." , "The true test of leadership is how well you function in a crisis." , "Leaders concentrate single-mindedly on one thing– the most important thing, and they stay at it until it’s complete." , "The three ‘C’s’ of leadership are Consideration, Caring, and Courtesy. Be polite to everyone." , "Respect is the key determinant of high-performance leadership. How much people respect you determines how well they perform." , "Leadership is more who you are than what you do." , "Entrepreneurial leadership requires the ability to move quickly when opportunity presents itself." , "Leaders are innovative, entrepreneurial, and future-oriented. They focus on getting the job done." , "Leaders are never satisfied; they continually strive to be better."]
-    message =str(random.choice(list1))
-    return render_template('home.html', message = message)
+    message = random.sample(list1, 1)
+    return render_template('home.html', message = message[0])
 
 
 @app.route("/granth", methods=['GET', 'POST'])
@@ -37,7 +37,6 @@ def granth():
 @app.route("/notifications", methods=['GET', 'POST'])
 @login_required
 def notifications():
-
     if current_user.username in c:
         nevents = get_nevents_for_user(current_user.username)
         return render_template('notification_teacher.html', nevents = nevents)
@@ -128,7 +127,6 @@ def new_one():
                 return render_template('request_app.html', message = "Only Students can access this page")
     else:
         return render_template('home.html', message = "Login to continue")
-
 
 
 @app.route("/x/<date>", methods=['GET', 'POST'])
@@ -337,16 +335,20 @@ def counsellor(x):
 def addnevent(x):
     nevents = get_nevents_by_id(x)
     objInstance = x
-    added_by = get_nevents_by_id(objInstance)[0].get('added_by')
-    date = get_nevents_by_id(objInstance)[0].get('date')
-    timestart = get_nevents_by_id(objInstance)[0].get('timestart')
-    members = get_nevents_by_id(objInstance)[0].get('members')
-    event = get_nevents_by_id(objInstance)[0].get('event')
-    add_event(date, timestart, event, added_by, members)
-    info = f"Your meet with {members} on {date} regarding {event} has been scheduled betweeen {timestart}"
-    add_napproval_for_user(info, added_by)
-    delete_nevents_by_id(x)
-    return render_template('home.html', message="")
+    list_ids = get_neventsid()
+    if objInstance in list_ids:
+        added_by = get_nevents_by_id(objInstance)[0].get('added_by')
+        date = get_nevents_by_id(objInstance)[0].get('date')
+        timestart = get_nevents_by_id(objInstance)[0].get('timestart')
+        members = get_nevents_by_id(objInstance)[0].get('members')
+        event = get_nevents_by_id(objInstance)[0].get('event')
+        add_event(date, timestart, event, added_by, members)
+        info = f"Your meet with {members} on {date} regarding {event} has been scheduled betweeen {timestart}"
+        add_napproval_for_user(info, added_by)
+        delete_nevents_by_id(x)
+        return render_template('home.html', message = "Thanks for your response.")
+    else:
+        return render_template('home.html', message = "Request already catered to.")
 
 
 @app.route("/noaddnevent/<x>", methods=['GET', 'POST'])
@@ -354,15 +356,19 @@ def addnevent(x):
 def noaddnevent(x):
     nevents = get_nevents_by_id(x)
     objInstance = x
-    added_by = get_nevents_by_id(objInstance)[0].get('added_by')
-    date = get_nevents_by_id(objInstance)[0].get('date')
-    timestart = get_nevents_by_id(objInstance)[0].get('timestart')
-    members = get_nevents_by_id(objInstance)[0].get('members')
-    event = get_nevents_by_id(objInstance)[0].get('event')
-    info = f"The time slot {timestart} is not available"
-    add_napproval_for_user(info, added_by)
-    delete_nevents_by_id(x)
-    return render_template('home.html')
+    list_ids = get_neventsid()
+    if objInstance in list_ids:
+        added_by = get_nevents_by_id(objInstance)[0].get('added_by')
+        date = get_nevents_by_id(objInstance)[0].get('date')
+        timestart = get_nevents_by_id(objInstance)[0].get('timestart')
+        members = get_nevents_by_id(objInstance)[0].get('members')
+        event = get_nevents_by_id(objInstance)[0].get('event')
+        info = f"The time slot {timestart} is not available"
+        add_napproval_for_user(info, added_by)
+        delete_nevents_by_id(x)
+        return render_template('home.html', message = "Thanks for your response.")
+    else:
+        return render_template('home.html', message = "Request already catered to.")
 
 
 @app.route("/logout/", methods=['GET', 'POST'])
