@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height">
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
 
+    
 </head>
 <style>
     .both {
@@ -86,7 +87,7 @@
             <form method="post">
                 <div class="mb-3 row">
                     <label for="validationCustom03" class="form-label">Date: </label>
-                    <input type="date" name="date" class="form-control " required>
+                    <input type="date" id="mindate" name="date" class="form-control media3" required>
                 </div>
                 <div class="mb-3 row">
                     <label for="validationCustom03" class="form-label">Time Start:</label>
@@ -115,6 +116,14 @@
         {% endif %}
     </div>
     </div>
+    <script>
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById('mindate').setAttribute('min',today)
+   </script>    
 </body>
 
 </html>
