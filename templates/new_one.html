@@ -142,13 +142,13 @@
         </div>
         <br>
         <div class="two twotwo">
-                
+
                     <p class="timings">Timings: </p>
                     <p id="cname" style="font-size: 0.9em;width: 100%;"></p>
                     <p id="dname" style="font-size: 0.9em;width: 100%;"></p>
                     <p id="tname" style="font-size: 0.9em;width: 100%;"></p>
-                    
-                
+
+
         </div>
         <br>
         {% if message == "" %}
@@ -164,19 +164,18 @@
     var ktime = "10 AM - 1 PM"
     var btime = "10 AM - 1 PM"
     var ttime = "10 AM - 1 PM"
-    var kdays = "Mondays, Tuesdays and Thursdays"
+    var kdays = "Mondays, Wednesdays and Fridays"
     var bdays = "Monday to Saturday"
     var tdays = "Monday to Saturday"
 
     if (counsellor == "Kamiya Kumar") {
         $('.datepicker').datepicker({
-            daysOfWeekDisabled: [0, 3, 5, 6],
+            daysOfWeekDisabled: [0, 2, 4, 6],
             startDate: new Date()
-            
         });
         document.getElementById('cname').innerHTML ="Counsellor: Ms. "+counsellor
         document.getElementById('dname').innerHTML = "Days: " + kdays
-        document.getElementById('tname').innerHTML ="Time: "+ktime 
+        document.getElementById('tname').innerHTML ="Time: "+ktime
     }
     else if (counsellor == "Bhavana Bhasin") {
         $('.datepicker').datepicker({
@@ -185,7 +184,7 @@
         });
         document.getElementById('cname').innerHTML ="Counsellor: Ms. "+counsellor
         document.getElementById('dname').innerHTML = "Days: " + bdays
-        document.getElementById('tname').innerHTML ="Time: "+btime 
+        document.getElementById('tname').innerHTML ="Time: "+btime
 
     }
     else if (counsellor == "Tanvi Bajaj") {
@@ -195,7 +194,7 @@
         });
         document.getElementById('cname').innerHTML ="Counsellor: Ms. "+counsellor
         document.getElementById('dname').innerHTML = "Days: " + tdays
-        document.getElementById('tname').innerHTML ="Time: "+ttime 
+        document.getElementById('tname').innerHTML ="Time: "+ttime
 
     }
     else {
@@ -203,7 +202,7 @@
             daysOfWeekDisabled: [0]
         });
     }
-    
+
 </script>
 
 </html>
