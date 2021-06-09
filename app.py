@@ -83,6 +83,45 @@ def rooms():
         return render_template('home.html', message = "Login to continue")
 
 
+@app.route('/chat-room/<room_id>/', methods=['GET', 'POST'])
+@login_required
+def view_room(room_id):
+    room_get = get_room(room_id)
+    link = ""
+    if room_get and is_room_member(room_id, current_user.username):
+        room_members = get_room_members(room_id)
+        messages = get_messages(room_id)
+        return render_template('chat_room.html', username=current_user.username, room=room_get, room_members=room_members,messages=messages)
+    else:
+        return "Room not found", 404
+
+
+@app.route('/chat-room/<room_id>/edit', methods=['GET', 'POST'])
+@login_required
+def edit_room(room_id):
+    room = get_room(room_id)
+    if room and is_room_admin(room_id, current_user.username):
+        existing_room_members = [member['_id']['username'] for member in get_room_members(room_id)]
+        room_members_str = ",".join(existing_room_members)
+        message = ''
+        if request.method == 'POST':
+            room_name = request.form.get('room_name')
+            room['name'] = room_name
+            update_room(room_id, room_name)
+            new_members = [username.strip() for username in request.form.get('members').split(',')]
+            members_to_add = list(set(new_members) - set(existing_room_members))
+            members_to_remove = list(set(existing_room_members) - set(new_members))
+            if len(members_to_add):
+                add_room_members(room_id, room_name, members_to_add, current_user.username)
+            if len(members_to_remove):
+                remove_room_members(room_id, members_to_remove)
+            message = 'Room edited successfully'
+            room_members_str = ",".join(new_members)
+        return render_template('edit_room.html', room=room, room_members_str=room_members_str, message=message)
+    else:
+        return "Only the room admin can edit the room details ", 404
+
+
 @app.route("/new-one", methods=['GET', 'POST'])
 @login_required
 def new_one():
@@ -267,40 +306,6 @@ def check_group():
         return render_template('home.html', message = "Login to continue")
 
 
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
-    message = ''
-    if request.method == 'POST':
-        username = request.form.get('username')
-        email = request.form.get('email')
-        password = request.form.get('password')
-        try:
-            save_user(username, email, password)
-            return redirect(url_for('login'))
-        except DuplicateKeyError:
-            message = "User already exists!"
-    return render_template('signup.html', message=message)
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
-    message = ''
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password_input = request.form.get('password')
-        user = get_user(username)
-        if user and user.check_password(password_input):
-            login_user(user)
-            return redirect(url_for('home'))
-        else:
-            message = 'Failed to login!'
-    return render_template('login.html', message=message)
-
-
 @app.route('/counsellor/<x>', methods=['GET', 'POST'])
 @login_required
 def counsellor(x):
@@ -372,37 +377,45 @@ def noaddnevent(x):
         return render_template('home.html', message = "Request already catered to.")
 
 
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    message = ''
+    if request.method == 'POST':
+        username = request.form.get('username')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        try:
+            save_user(username, email, password)
+            return redirect(url_for('login'))
+        except DuplicateKeyError:
+            message = "User already exists!"
+    return render_template('signup.html', message=message)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    message = ''
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password_input = request.form.get('password')
+        user = get_user(username)
+        if user and user.check_password(password_input):
+            login_user(user)
+            return redirect(url_for('home'))
+        else:
+            message = 'Failed to login!'
+    return render_template('login.html', message=message)
+
+
 @app.route("/logout/", methods=['GET', 'POST'])
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('home'))
-
-
-@app.route('/chat-room/<room_id>/edit', methods=['GET', 'POST'])
-@login_required
-def edit_room(room_id):
-    room = get_room(room_id)
-    if room and is_room_admin(room_id, current_user.username):
-        existing_room_members = [member['_id']['username'] for member in get_room_members(room_id)]
-        room_members_str = ",".join(existing_room_members)
-        message = ''
-        if request.method == 'POST':
-            room_name = request.form.get('room_name')
-            room['name'] = room_name
-            update_room(room_id, room_name)
-            new_members = [username.strip() for username in request.form.get('members').split(',')]
-            members_to_add = list(set(new_members) - set(existing_room_members))
-            members_to_remove = list(set(existing_room_members) - set(new_members))
-            if len(members_to_add):
-                add_room_members(room_id, room_name, members_to_add, current_user.username)
-            if len(members_to_remove):
-                remove_room_members(room_id, members_to_remove)
-            message = 'Room edited successfully'
-            room_members_str = ",".join(new_members)
-        return render_template('edit_room.html', room=room, room_members_str=room_members_str, message=message)
-    else:
-        return "Only the room admin can edit the room details ", 404
 
 
 @app.route('/change-pass', methods=['GET', 'POST'])
@@ -414,19 +427,6 @@ def change_pass():
         update_user(current_user.username, current_user.email, new_pass)
         message = 'Password Changed successfully'
     return render_template('change_pass.html', message = message)
-
-
-@app.route('/chat-room/<room_id>/', methods=['GET', 'POST'])
-@login_required
-def view_room(room_id):
-    room_get = get_room(room_id)
-    link = ""
-    if room_get and is_room_member(room_id, current_user.username):
-        room_members = get_room_members(room_id)
-        messages = get_messages(room_id)
-        return render_template('chat_room.html', username=current_user.username, room=room_get, room_members=room_members,messages=messages)
-    else:
-        return "Room not found", 404
 
 
 @socketio.on('send_message')
