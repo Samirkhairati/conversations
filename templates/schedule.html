@@ -8,45 +8,20 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
 
 </head>
-<style>
-    .both {
-        width: 30%;
-        margin-left: 3%;
-        margin-top: 3%;
-    }
 
-    .heading {
-        font-size: 175%;
-        font-weight: 600;
-        border-bottom: .02em solid #16192c;
-    }
 
-    .btnz {
-        transition: transform .2s;
-    }
-
-    .btnz:hover {
-        transform: scale(1.1);
-        /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-    }
-
-    .button_img {
-        width: 95%;
-        height: 95%;
-    }
-
-    a {
-        color: #fff;
-        text-align: center;
-    }
-
-    @media (max-width: 500px) {
+<body>
+    <style>
         .both {
-            width: 90%;
-            margin-left: auto;
-            margin-right: auto;
-            float: center;
+            width: 30%;
+            margin-left: 3%;
             margin-top: 3%;
+        }
+
+        .heading {
+            font-size: 175%;
+            font-weight: 600;
+            border-bottom: .02em solid #16192c;
         }
 
         .btnz {
@@ -54,29 +29,67 @@
         }
 
         .btnz:hover {
-            transform: scale(1);
+            transform: scale(1.1);
             /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
         }
 
-        .heading {
-            font-size: 175%;
-            font-weight: 600;
-            border-bottom: .02em solid #16192c;
-            width: 100%;
-        }
-
         .button_img {
-            width: 100%;
-            height: 100%;
+            width: 95%;
+            height: 95%;
         }
 
         a {
             color: #fff;
-            text-align: left;
+            text-align: center;
         }
-</style>
 
-<body>
+        .pp {
+            text-align: center;
+            background-color: #fff;
+            border: 1px solid #000;
+            border-radius: 5px;
+            width: 100%;
+            margin-left: 0%;
+            padding-top: 0.75em;
+            padding-bottom: 0.0em;
+        }
+
+        @media (max-width: 500px) {
+            .both {
+                width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+                float: center;
+                margin-top: 3%;
+            }
+
+            .heading {
+                font-size: 175%;
+                font-weight: 600;
+                border-bottom: .02em solid #16192c;
+                width: 100%;
+            }
+
+            .btnz {
+                transition: transform .2s;
+            }
+
+            .btnz:hover {
+                transform: scale(1);
+                /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+            }
+
+            .button_img {
+                width: 100%;
+                height: 100%;
+            }
+
+            a {
+                color: #fff;
+                text-align: left;
+            }
+        }
+    </style>
     <div class="both">
         <p class="heading">Check Schedule</p>
         <a href="{{ url_for('check_one') }}">
@@ -92,12 +105,14 @@
             </div>
         </a>
         <br>
+        {% if message == "" %}
+        <p></p>
+        {% else %}
+        <div class="pp">
+            <p class=" alert-{{ category }}">{{ message }}</p>
+        </div>
+        {% endif %}
     </div>
-    {% if message == "" %}
-    <p></p>
-    {% else %}
-    <p class="pp alert alert-{{ category }}">{{ message }}!</p>
-    {% endif %}
 </body>
 
 </html>

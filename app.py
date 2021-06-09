@@ -204,45 +204,49 @@ def new_group():
 @login_required
 def check_one():
     if current_user.is_authenticated:
-        events = get_events_for_user(current_user.username)
-        events_list = []
-        members = get_rooms_for_user(current_user.username)
-        xy = members[0].get('_id').get('room_id')
-        xyz = get_room_members(xy)
-        x = xyz[1].get('_id').get('username')
+        rooms_list = get_rooms_for_user(current_user.username)
+        if rooms_list == []:
+            return render_template('schedule.html', message = "Please join a counsellor to check for meets.")
+        else:
+            events = get_events_for_user(current_user.username)
+            events_list = []
+            members = get_rooms_for_user(current_user.username)
+            xy = members[0].get('_id').get('room_id')
+            xyz = get_room_members(xy)
+            x = xyz[1].get('_id').get('username')
 
-        for event in events:
-            date = event['date']
-            rooms = get_rooms_for_user(current_user.username)
-            eventt = event.get('event')
-            timestart = event.get('timestart')
-            time = timestart
-            link = ""
-            if x == "S-ADMIN":
-                link = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-            if x == "Bhavana Bhasin":
-                link = "https://us04web.zoom.us/j/74664083392?pwd=TGlncmNTeUJoRXdYckpHNXArRit5UT09#success"
-            if x == "Tanvi Baja":
-                link = "https://us04web.zoom.us/j/74664083392?pwd=TGlncmNTeUJoRXdYckpHNXArRit5UT09#success"
-            if x == "Kamiya Kumar":
-                link = "https://us04web.zoom.us/j/74664083392?pwd=TGlncmNTeUJoRXdYckpHNXArRit5UT09#success"
-            event = eventt + " " + link
-            e = [event, date, time]
-            events_list.append(e)
-        if current_user.username not in c:
-            events_cs = get_events_for_user(x)
-            for event_c in events_cs:
-                print(event_c.get('added_by'))
-                date_c = event_c.get('date')
-                eventt_c = f"Slot booked for Ms. {x}"
-                timestart_c = event_c.get('timestart')
-                time_c = timestart_c
-                e_c = [eventt_c, date_c, time_c]
-                if event_c.get('added_by') == current_user.username:
-                    pass
-                else:
-                    events_list.append(e_c)
-        return render_template("check_one.html", gevents=events_list)
+            for event in events:
+                date = event['date']
+                rooms = get_rooms_for_user(current_user.username)
+                eventt = event.get('event')
+                timestart = event.get('timestart')
+                time = timestart
+                link = ""
+                if x == "S-ADMIN":
+                    link = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                if x == "Bhavana Bhasin":
+                    link = "https://us04web.zoom.us/j/74664083392?pwd=TGlncmNTeUJoRXdYckpHNXArRit5UT09#success"
+                if x == "Tanvi Baja":
+                    link = "https://us04web.zoom.us/j/74664083392?pwd=TGlncmNTeUJoRXdYckpHNXArRit5UT09#success"
+                if x == "Kamiya Kumar":
+                    link = "https://us04web.zoom.us/j/74664083392?pwd=TGlncmNTeUJoRXdYckpHNXArRit5UT09#success"
+                event = eventt + " " + link
+                e = [event, date, time]
+                events_list.append(e)
+            if current_user.username not in c:
+                events_cs = get_events_for_user(x)
+                for event_c in events_cs:
+                    print(event_c.get('added_by'))
+                    date_c = event_c.get('date')
+                    eventt_c = f"Slot booked for Ms. {x}"
+                    timestart_c = event_c.get('timestart')
+                    time_c = timestart_c
+                    e_c = [eventt_c, date_c, time_c]
+                    if event_c.get('added_by') == current_user.username:
+                        pass
+                    else:
+                        events_list.append(e_c)
+            return render_template("check_one.html", gevents=events_list)
     else:
         return render_template('home.html', message = "Login to continue")
 
