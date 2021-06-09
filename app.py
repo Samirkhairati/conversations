@@ -48,8 +48,12 @@ def notifications():
 @app.route("/request-app", methods=['GET', 'POST'])
 @login_required
 def request_app():
-    message = ""
-    return render_template('request_app.html', message=message)
+    rooms_list = get_rooms_for_user(current_user.username)
+    if rooms_list == []:
+        return render_template('home.html', message = "Please chat with a counsellor to request for a meet.")
+    else:
+        message = ""
+        return render_template('request_app.html', message=message)
 
 
 @app.route("/schedule", methods=['GET', 'POST'])
