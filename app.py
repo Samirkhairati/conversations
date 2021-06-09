@@ -29,11 +29,6 @@ def home():
     return render_template('home.html', message = message[0])
 
 
-@app.route("/granth", methods=['GET', 'POST'])
-def granth():
-    return render_template('granth.html')
-
-
 @app.route("/notifications", methods=['GET', 'POST'])
 @login_required
 def notifications():
@@ -461,6 +456,7 @@ def handle_leave_room_event(data):
 @login_manager.user_loader
 def load_user(username):
     return get_user(username)
+
 
 @app.errorhandler(500)
 def page_not_found(e):

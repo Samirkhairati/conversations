@@ -1849,20 +1849,139 @@
       background-color: transparent;
       border-bottom-color: #5c60f5
     }
-  </style>
-  <style>
-    .d-flex{display:flex !important}
-    .align-items-lg-center{align-items:center !important}
-    .mt-3{margin-top:.75rem !important}
-    .mt-lg-0{margin-top:0 !important}
-    .btn-sm,.btn-group-sm>.btn{padding:.5rem 1rem;font-size:0.875rem;border-radius:.375rem}
-    .btn-sm,.btn-group-sm>.btn-square.btn{width:2.25rem;height:2.25rem}
-    .btn-sm+.dropdown-toggle-split,.btn-group-sm>.btn+.dropdown-toggle-split{padding-right:.75rem;padding-left:.75rem}
-    .btn-primary{color:#fff;background-color:#5c60f5;border-color:#5c60f5}.btn-primary:hover{color:#fff;background-color:#4e52d0;border-color:#4a4dc4}.btn-check:focus+.btn-primary,.btn-primary:focus{color:#fff;background-color:#4e52d0;border-color:#4a4dc4;box-shadow:0 0 0 1px rgba(116,120,247,.5)}.btn-check:checked+.btn-primary,.btn-check:active+.btn-primary,.btn-primary:active,.btn-primary.active,.show>.btn-primary.dropdown-toggle{color:#fff;background-color:#4a4dc4;border-color:#4548b8}.btn-check:checked+.btn-primary:focus,.btn-check:active+.btn-primary:focus,.btn-primary:active:focus,.btn-primary.active:focus,.show>.btn-primary.dropdown-toggle:focus{box-shadow:0 0 0 1px rgba(116,120,247,.5)}.btn-primary:disabled,.btn-primary.disabled{color:#fff;background-color:#5c60f5;border-color:#5c60f5}
-    .w-full{width:100% !important}.w-screen{width:100vw !important}.w-min{width:-webkit-min-content !important;width:-moz-min-content !important;width:min-content !important}.w-max{width:-webkit-max-content !important;width:-moz-max-content !important;width:max-content !important}.max-w-screen-sm{max-width:640px !important}.max-w-screen-md{max-width:768px !important}.max-w-screen-lg{max-width:1024px !important}.max-w-screen-xl{max-width:1280px !important}.max-w-screen-xxl{max-width:1536px !important}.max-w-0{max-width:0 !important}.max-w-full{max-width:100% !important}
-    .w-lg-auto{width:auto !important}
-  </style>
-  <style>
+
+    .d-flex {
+      display: flex !important
+    }
+
+    .align-items-lg-center {
+      align-items: center !important
+    }
+
+    .mt-3 {
+      margin-top: .75rem !important
+    }
+
+    .mt-lg-0 {
+      margin-top: 0 !important
+    }
+
+    .btn-sm,
+    .btn-group-sm>.btn {
+      padding: .5rem 1rem;
+      font-size: 0.875rem;
+      border-radius: .375rem
+    }
+
+    .btn-sm,
+    .btn-group-sm>.btn-square.btn {
+      width: 2.25rem;
+      height: 2.25rem
+    }
+
+    .btn-sm+.dropdown-toggle-split,
+    .btn-group-sm>.btn+.dropdown-toggle-split {
+      padding-right: .75rem;
+      padding-left: .75rem
+    }
+
+    .btn-primary {
+      color: #fff;
+      background-color: #5c60f5;
+      border-color: #5c60f5
+    }
+
+    .btn-primary:hover {
+      color: #fff;
+      background-color: #4e52d0;
+      border-color: #4a4dc4
+    }
+
+    .btn-check:focus+.btn-primary,
+    .btn-primary:focus {
+      color: #fff;
+      background-color: #4e52d0;
+      border-color: #4a4dc4;
+      box-shadow: 0 0 0 1px rgba(116, 120, 247, .5)
+    }
+
+    .btn-check:checked+.btn-primary,
+    .btn-check:active+.btn-primary,
+    .btn-primary:active,
+    .btn-primary.active,
+    .show>.btn-primary.dropdown-toggle {
+      color: #fff;
+      background-color: #4a4dc4;
+      border-color: #4548b8
+    }
+
+    .btn-check:checked+.btn-primary:focus,
+    .btn-check:active+.btn-primary:focus,
+    .btn-primary:active:focus,
+    .btn-primary.active:focus,
+    .show>.btn-primary.dropdown-toggle:focus {
+      box-shadow: 0 0 0 1px rgba(116, 120, 247, .5)
+    }
+
+    .btn-primary:disabled,
+    .btn-primary.disabled {
+      color: #fff;
+      background-color: #5c60f5;
+      border-color: #5c60f5
+    }
+
+    .w-full {
+      width: 100% !important
+    }
+
+    .w-screen {
+      width: 100vw !important
+    }
+
+    .w-min {
+      width: -webkit-min-content !important;
+      width: -moz-min-content !important;
+      width: min-content !important
+    }
+
+    .w-max {
+      width: -webkit-max-content !important;
+      width: -moz-max-content !important;
+      width: max-content !important
+    }
+
+    .max-w-screen-sm {
+      max-width: 640px !important
+    }
+
+    .max-w-screen-md {
+      max-width: 768px !important
+    }
+
+    .max-w-screen-lg {
+      max-width: 1024px !important
+    }
+
+    .max-w-screen-xl {
+      max-width: 1280px !important
+    }
+
+    .max-w-screen-xxl {
+      max-width: 1536px !important
+    }
+
+    .max-w-0 {
+      max-width: 0 !important
+    }
+
+    .max-w-full {
+      max-width: 100% !important
+    }
+
+    .w-lg-auto {
+      width: auto !important
+    }
+
     .h-8 {
       height: 3.5em !important
     }
@@ -2007,7 +2126,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarToggle" style="margin-left:10px">
-        <div class="navbar-nav mx-lg-auto" >
+        <div class="navbar-nav mx-lg-auto">
           {% if current_user.is_authenticated %}
           <a class="nav-item nav-link" href="{{ url_for('rooms') }}">View Rooms</a>
           <a class="nav-item nav-link" href="{{ url_for('request_app') }}">New Appointment</a>
@@ -2034,10 +2153,8 @@
   </nav>
 </head>
 
-<body
-  style="background-image:url('https://media.discordapp.net/attachments/763767615042224149/848662035348979772/Layer_2.png');">
+<body style="background-image:url('static/Layer.png');">
   <main role="main" class="container" style="margin-left:125px;">
-
   </main>
   <div style="margin: 30px 30px 30px 30px;">
     {% block content %}

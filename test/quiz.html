@@ -1,0 +1,88 @@
+{% extends "try.html" %}
+{% block content %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+
+</head>
+
+<body>
+    <style>
+        .media {
+            margin-left: 3em;
+            margin-top: 3em;
+        }
+
+        .media2 {
+            margin-left: 3em;
+            margin-top: 1.5em;
+        }
+
+        hr {
+            color: #253351;
+            position: relative;
+            float: left;
+            width: 30em;
+            top: 0px;
+            border: none;
+            height: 1px;
+            background: #253351;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 500px) {
+            .media {
+                margin-left: 0em;
+                margin-top: 0em;
+            }
+
+            hr {
+                color: #253351;
+                position: relative;
+                float: left;
+                width: 20em;
+                top: 0px;
+                border: none;
+                height: 1px;
+                background: #253351;
+                margin-bottom: 10px;
+            }
+
+            .media {
+                margin-left: 1em;
+                margin-top: 3em;
+            }
+
+            .media2 {
+                margin-left: 1em;
+                margin-top: 1.5em;
+            }
+        }
+    </style>
+    <div class="media">
+        <div class="media-body">
+            <legend style="font-weight:600;font-size: 30px;color:#253351">Self Assessment</legend>
+            <hr>
+        </div>
+    </div>
+    <div class="media2">
+        <form action="/quiz" method="post">
+            {% for question in data %}
+            <p style="font-size:20px; color: #253351;font-weight: 500;font-size: 23px; ">{{ question.question }}</p>
+            {% for answer in question.answers %}
+            <input required type="radio" id="{{ answer }}" name="{{ question.id }}" value="{{ answer }}"> {{ answer
+            }}<br>
+            {% endfor %}
+            <br>
+            {% endfor %}
+
+            <input type="submit" class="btn btn-secondary" style="background-color: #16192c;margin-top: 1em;"
+                value="Submit" name="Submit" />
+        </form>
+    </div>
+</body>
+
+</html>
+{% endblock content %}
