@@ -48,12 +48,9 @@ def notifications():
 @app.route("/request-app", methods=['GET', 'POST'])
 @login_required
 def request_app():
-    rooms_list = get_rooms_for_user(current_user.username)
-    if rooms_list == []:
-        return render_template('home.html', message = "Please chat with a counsellor to request for a meet.")
-    else:
-        message = ""
-        return render_template('request_app.html', message=message)
+
+    message = ""
+    return render_template('request_app.html', message=message)
 
 
 @app.route("/schedule", methods=['GET', 'POST'])
@@ -95,13 +92,14 @@ def rooms():
 @login_required
 def new_one():
     if current_user.is_authenticated:
-        rooms = get_rooms_for_user(current_user.username)
-        xy = rooms[0].get('_id').get('room_id')
-        xyz = get_room_members(xy)
-        x = xyz[1].get('_id').get('username')
-        if rooms == []:
-            return render_template('home.html', message = "Please join a room to schedule a meet")
+        rooms_list = get_rooms_for_user(current_user.username)
+        if rooms_list == []:
+            return render_template('request_app.html', message = "Please join a counsellor to request for a meet.")
         else:
+            rooms = get_rooms_for_user(current_user.username)
+            xy = rooms[0].get('_id').get('room_id')
+            xyz = get_room_members(xy)
+            x = xyz[1].get('_id').get('username')
             c = ["Bhavana Bhasin", "Kamiya Kumar", "Tanvi Bajaj", "G-ADMIN", "S-ADMIN"]
             if current_user.username not in c:
                 if request.method == 'POST':
